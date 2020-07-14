@@ -11,16 +11,37 @@ class Watcher {
             return;
 
         this.config = config;
-        this.config.files.forEach(this.registerFile.bind(this));
+        this.copyFunctions = {};
+        this.config.copy.forEach(this.registerFiles.bind(this));
     }
 
-    registerFile(fileName) {
-        const file = path.resolve(this.config.from, fileName);
-        const destination = path.resolve(this.config.to, fileName);
+    registerFiles(copy) {
+        copy.files.forEach((fileName) => {
+            this.registerFile(copy.from, copy.to, fileName);
+        });
+    }
+
+    registerFile(from, to, fileName) {
+        const file = path.resolve(from, fileName);
+        const destination = path.resolve(to, fileName);
+        this.copyFunctions[file] = () => {
+            fs.copyFile(file, destination, () => { });
+        };
 
         fs.watch(file, () => {
-            fs.copyFile(file, destination, () => { });
+            if (this.config.alwaysCopyAll) {
+                this.copyAll();
+                return;
+            }
+
+            this.copyFunctions[file]();
         });
+    }
+
+    copyAll() {
+        for (let key in this.copyFunctions) {
+            this.copyFunctions[key]();
+        }
     }
 
 }

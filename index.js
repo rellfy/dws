@@ -20,7 +20,10 @@ function startServer() {
 }
 
 function startWatcher() {
-    config.watcher.from = path.resolve(configPath, config.watcher.from);
-    config.watcher.to = path.resolve(configPath, config.watcher.to);
+    for (let i = 0; i < config.watcher.copy.length; i++) {
+        config.watcher.copy[i].from = path.resolve(configPath, config.watcher.copy[i].from);
+        config.watcher.copy[i].to = path.resolve(configPath, config.watcher.copy[i].to);
+    }
+
     new Watcher(config.watcher);
 }

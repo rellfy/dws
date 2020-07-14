@@ -6,10 +6,13 @@
     },
     "watcher": {
         "enabled": true,
-        "from": "../../target/wasm32-unknown-unknown/debug/",
-        "to": "../dist",
-        "files": [
-            "example.wasm"
-        ]
+        "alwaysCopyAll": true,
+        "copy": [{
+            "from": "../../target/wasm32-unknown-unknown/debug/",
+            "to": "../dist",
+            "files": [
+                "example.wasm"
+            ]
+        }]
     }
 }
