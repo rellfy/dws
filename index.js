@@ -1,6 +1,4 @@
 const path = require("path");
-const express = require("express");
-const app = express();
 const fs = require("fs");
 const Watcher = require("./Watcher.js");
 const Server = require("./Server.js");
