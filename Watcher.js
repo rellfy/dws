@@ -9,15 +9,15 @@ class Watcher {
     constructor(config) {
         if (config == null || !config.enabled)
             return;
-        
+
         this.config = config;
         this.config.files.forEach(this.registerFile.bind(this));
     }
 
     registerFile(fileName) {
-        const file = path.resolve(__dirname, this.config.from, fileName);
-        const destination = path.resolve(__dirname, this.config.to, fileName);
-        
+        const file = path.resolve(this.config.from, fileName);
+        const destination = path.resolve(this.config.to, fileName);
+
         fs.watch(file, () => {
             fs.copyFile(file, destination, () => { });
         });

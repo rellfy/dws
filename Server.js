@@ -6,7 +6,7 @@ class Server {
     constructor(config) {
         if (config == null || !config.enabled)
             return;
-        
+
         this.config = config;
         this.initialise();
     }
