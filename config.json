@@ -1,0 +1,15 @@
+{
+    "server": {
+        "enabled": true,
+        "port": 8080,
+        "path": "../dist"
+    },
+    "watcher": {
+        "enabled": true,
+        "from": "../../target/wasm32-unknown-unknown/debug/",
+        "to": "../dist",
+        "files": [
+            "example.wasm"
+        ]
+    }
+}
